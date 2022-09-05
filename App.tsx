@@ -1,7 +1,7 @@
 import React, {useState}from 'react';
 import {View} from 'react-native';
 import {AppBar} from './components/AppVar'
-import {Pharmacy} from './Pharmacy'
+import {Pharmacy} from './components/Pharmacy'
 
 const App = () => {
   return (
