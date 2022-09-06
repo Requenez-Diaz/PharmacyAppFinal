@@ -1,138 +1,97 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer, useState, } from "react";
 import { TextInput } from "react-native-paper";
-import { TouchableOpacity, StyleSheet, Text, Button, View, MaskedViewBase } from "react-native";
+import { StyleSheet, Text, Button, View } from "react-native";
 
 export const Pharmacy = () => {
-  const [medicina, setMedicina] = useState<string>("");
-  const [cantidad, setCantidad] = useState<string>("");
-  const [precio, setPrecio] = useState<string>("");
+  const [Product, setProduct] = useState('');
+  const [precio, setPrecio] = useState('');
 
-  const [producto, setProducto] = useState<string[]>([]);
-  
-  const [Inventario, setInventario] = useState<string[]>([]);
+  const [Data, setData] = useState(['']);
+  const [dataPrice, setDataPrice] = useState([''])
 
-  const AddProducto = () => {
-    const products: string[] = [medicina];
-    const addMedicina: string[] = [...producto, ...products];
-    setProducto(addMedicina);
-  };
-  const btnAcction = () => {
-    AddProducto();
-  };
+  let list: string[] = [''];
+
+  const handleAdd = () => {
+    setData([...Data, Product])
+    setDataPrice([...dataPrice, precio])
+  }
+
+
   return (
     <View>
-      <View style={styles.container}>
-        <Text style={styles.title}>Registre medicamentos</Text>
-
+      <View style={styles.constainer}>
         <TextInput
-          style={styles.input}
-          label="Nombre Medicina"
-          defaultValue={medicina}
-          onChangeText={setMedicina}
-        />
-
-        <TextInput
-          style={styles.input}
-          label="Cantida"
-          defaultValue={cantidad}
-          onChangeText={setCantidad}
-          keyboardType="numeric"
+          style={styles.inputs}
+          label="Nombre del medicamento"
+          onChangeText={setProduct}
         />
         <TextInput
-          style={styles.input}
-          label="Precio"
-          defaultValue={precio}
+          style={styles.inputs}
+          label="Precio del medicamento"
+          textAlign="center"
           onChangeText={setPrecio}
-          keyboardType="numeric"
         />
-      </View>
-      <View style={styles.btn}>
         <View style={styles.btn}>
-          <TouchableOpacity style={styles.button} onPress={() => btnAcction}>
-            <Text style={styles.Text}> Agregar </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button1} onPress={() => btnAcction}>
-            <Text style={styles.Text}> borrar </Text>
-          </TouchableOpacity>
+        <Button title="Agregar" onPress={handleAdd} />
         </View>
       </View>
-      <View style={styles.productos}>
-        <Text style={styles.Text}>Productos agregados</Text>
-        <View>
-          <Text style={styles.producto}>Producto</Text>
-        </View>
-        {producto.map((product, index) => (
-          <View>
-            <Text>{index + 1}</Text>
-            <Text key={index} style={styles.Text}>
-              {product}
-            </Text>
-          </View>
-        ))}
+      <View style={styles.titles}>
+      <Text style={styles.title}>Productos Agergados</Text>
+      <Text style={styles.title1}>precio</Text>
       </View>
+      {Data.map((Datas, i) => (
+        <View style={styles.constainer1}>
+          <Text style={styles.title}>{Data[i]}</Text>
+          <Text style={styles.title1}>{dataPrice[i]}</Text>
+      </View>
+      ))}
     </View>
   );
 };
+
 export default Pharmacy;
 const styles = StyleSheet.create({
-  title: {
+  inputs: {
+    margin:8,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 5,
     padding: 10,
-    fontSize: 30,
+    fontSize: 22,
+    borderWidth:1,
+    borderColor:'#7b1fa2',
   },
-  container: {
-    margin: 20,
+  constainer: {
+    width: "95%",
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 20,
   },
-  productos: {
-    paddingHorizontal: 7,
-    marginTop: 30,
-    justifyContent: "space-between",
-    paddingVertical: 27,
-    borderRadius: 6,
-    borderColor: "#0275d8",
+  constainer1: {
+    borderColor:'#03a9f4',
+    fontSize:20,
+    margin:10,
+    padding: 25,
+    width: "95%",
+    borderRadius: 5,
+    borderWidth:1,
+    flexDirection:"row",
   },
-  producto: {
-    textAlign: "left",
+  text: {
     fontSize: 20,
-    color: "blue",
-    paddingLeft: 30,
   },
-  input: {
-    padding: 0,
-    backgroundColor: "white",
-    borderRadius: 5,
-    borderWidth: 1.5,
-    borderColor: "purple",
-    marginBottom: 10,
+  btn:{
+    margin:20,
   },
-  button: {
-    borderWidth: 2,
-    borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    marginLeft: 50,
-    justifyContent: "center",
-    borderColor: "#0275d8",
-    backgroundColor: "#0275d8",
+  titles:{
+    marginRight :80,
+    flexDirection:'row',
   },
-  button1: {
-    borderWidth: 2,
-    borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    marginLeft: 50,
-    justifyContent: "center",
-    borderColor: "red",
-    backgroundColor: "red",
+  title:{
+    fontSize:20,
+    marginLeft:10,
   },
-
-  Text: {
-    color: "blue",
-    fontSize: 23,
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-  btn: {
-    padding: 10,
-    flexDirection: "row",
+  title1:{
+    fontSize:20,
+    marginLeft:100,
   },
 });
